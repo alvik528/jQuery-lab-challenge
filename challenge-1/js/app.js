@@ -12,22 +12,41 @@
 
 // First, take a look at the index.html file to see the items you
 // will need to work with.
-
+var timer;
 // This function is the equivalent of document ready
 $(function() {
+    var reggie = new RegExp('^\\d+$');
+    var secs = parseInt($('#time').val());
+    var size = parseInt($('#size').val());
+    $('#countdownButton').click(function() {
+        if(reggie.test(secs) && reggie.test(size)) {
+            countDown();
+        }
+    });
 	/* Hints:
 	 		-- Start by registering the click event for the button.
 	 		-- You will need to keep track of the number of second somewhere.
 	 		-- Remember javascript function can be assigned into variable.
-	 		-- Input values are strings, remember to parse it!
+	 		- Input values are strings, remember to parse it!
 			-- Regex for checking digit input is '^\\d+$'
 			-- Look up how setInterval() works, you will need it.
+
 	*/		
 });
 
 function countDown() {
 	// Hint: if time < 0, stop the countdown, otherwise refresh the timer display & call createConfetti().
 	// Hint: to stop countdown, look up clearInterval() function.
+    var startTime = parseInt($('#time').val());
+    var timer =window.setInterval(function() {
+        $('#displayedTimer').text(startTime);
+        console.log(startTime);
+        createConfetti();
+        startTime--;
+        if(startTime < 0) {
+            window.clearInterval(timer);
+        }
+    }, 1000);
 }
 
 function createConfetti() {
